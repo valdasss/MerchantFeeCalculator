@@ -4,15 +4,14 @@ namespace MerchantFeeCalculator.Domain.Models
 {
     public abstract class Merchant
     {
-        protected decimal TransactionCommision { get; }
+
         public string MerchantName { get; }
         public Transaction Transaction { get; private set; }
         public decimal MerchantFee { get; protected set; }
-        protected Merchant(string merchantName, Transaction transaction, decimal transactionCommision)
+        protected Merchant(string merchantName, Transaction transaction)
         {
             MerchantName = merchantName;
             Transaction = transaction;
-            TransactionCommision = transactionCommision;
         }
         public virtual void AddTransaction(Transaction transaction)
         {

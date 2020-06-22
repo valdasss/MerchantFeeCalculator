@@ -12,13 +12,15 @@ namespace MerchantFeeCalculator
     class Program
     {
         const string TRANSACTION_FILE_PATH = "/AppData/transactions.txt";
-        const decimal TRANSACTION_COMMISION = 0.01m;
+        const decimal TRANSACTION_COMMISION = 0.01m;  
+        
         static void Main(string[] args)
         {
             var filePath = GetTransactionFilePath();
             using (StreamReader file = new StreamReader(filePath))
             {
                 string line;
+                var merchantFactory = new MerchantFactory();
                 var merchants = new Dictionary<string, Merchant>();
                 while ((line = file.ReadLine()) != null)
                 {
@@ -33,7 +35,7 @@ namespace MerchantFeeCalculator
                         merchants[merchantName].AddTransaction(transaction);
                     else
                     {
-                        var merchant = new StandartMerchant(merchantName, transaction, TRANSACTION_COMMISION);
+                        var merchant = merchantFactory.CreateMerchant(merchantName, transaction, TRANSACTION_COMMISION);
                         merchants.Add(merchantName, merchant);
                     }
                     merchants[merchantName].CalculateMerchantFee();
@@ -45,6 +47,6 @@ namespace MerchantFeeCalculator
         private static string GetTransactionFilePath()
         {
             return Path.GetDirectoryName(Path.GetDirectoryName(Directory.GetCurrentDirectory())) + TRANSACTION_FILE_PATH;
-        }
+        }     
     }
 }
