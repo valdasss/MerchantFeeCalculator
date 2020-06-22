@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Contracts\IInvoiceFee.cs" />
     <Compile Include="Models\BigMerchant.cs" />
     <Compile Include="Models\Merchant.cs" />
     <Compile Include="Models\MerchantFactory.cs" />

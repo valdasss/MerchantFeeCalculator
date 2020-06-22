@@ -4,10 +4,12 @@ namespace MerchantFeeCalculator.Domain.Models
 {
     public abstract class Merchant
     {
-
+        private decimal merchantFee;
+        public decimal MerchantFee { get { return Math.Round(this.merchantFee, 2); } protected set { this.merchantFee = value; } }
         public string MerchantName { get; }
         public Transaction Transaction { get; private set; }
-        public decimal MerchantFee { get; protected set; }
+
+       
         protected Merchant(string merchantName, Transaction transaction)
         {
             MerchantName = merchantName;
@@ -20,7 +22,7 @@ namespace MerchantFeeCalculator.Domain.Models
         public abstract void CalculateMerchantFee();
         public virtual string GetMerchantFeeInformation()
         {
-            return $"{Transaction.Date:yyyy-MM-dd} {MerchantName} {string.Format("{0:0.00}", Math.Round(MerchantFee, 2))}";
+            return $"{Transaction.Date:yyyy-MM-dd} {MerchantName} {string.Format("{0:0.00}", MerchantFee)}";
         }
 
     }
